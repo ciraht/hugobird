@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hugo Bird</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
     <header>
@@ -14,9 +13,16 @@
           <div id="bestScore"></div>
           <div id="currentScore"></div>
         </div>
-      </header>
-    
-      <canvas id="canvas" width="431" height="768"></canvas>
-      <script src="script.js"></script>
+    </header>
+
+    <div id="passwordPrompt">
+        <p>Digite a senha para jogar:</p>
+        <input type="password" id="passwordInput" placeholder="Digite a senha">
+        <button id="submitPassword">Entrar</button>
+        <p id="errorMessage" style="color: red; display: none;">Senha incorreta! Tente novamente.</p>
+    </div>
+
+    <canvas id="canvas" width="431" height="768"></canvas>
+    <script src="script.js"></script>
 </body>
 </html>

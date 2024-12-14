@@ -119,11 +119,21 @@ const render = () => {
   // tell the browser to perform anim
   window.requestAnimationFrame(render);
 }
+const passwordPrompt = document.getElementById('passwordPrompt');
+const passwordInput = document.getElementById('passwordInput');
+const submitPassword = document.getElementById('submitPassword');
+const errorMessage = document.getElementById('errorMessage');
 
+// Verificar senha
+submitPassword.addEventListener('click', () => {
+  if (passwordInput.value === "StarWars123") {
+    passwordPrompt.style.display = "none";
+    document.addEventListener('click', () => gamePlaying = true);
+    window.onclick = () => flight = jump;
+  } else {
+    errorMessage.style.display = "block";
+  }
+});
 // launch setup
 setup();
 img.onload = render;
-
-// start game
-document.addEventListener('click', () => gamePlaying = true);
-window.onclick = () => flight = jump;
