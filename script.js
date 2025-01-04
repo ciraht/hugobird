@@ -104,14 +104,44 @@ const render = () => {
 
   // Mostrar mensagem de parabéns se aplicável
   if (showCongrats) {
-      ctx.fillStyle = "rgba(255, 255, 255, 0.8)"; // Fundo semi-transparente
-      ctx.fillRect(50, canvas.height / 3, canvas.width - 100, 100);
+    // Configuração do fundo semi-transparente geral
+    const padding = 20; // Margem entre o texto e o fundo
+    const boxMargin = 50; // Margem extra para o fundo geral
+    const textX = canvas.width / 2;
+    const textY = (canvas.height / 3) + boxMargin;
 
-      ctx.fillStyle = "#000"; // Texto preto
-      ctx.font = "bold 24px Arial";
-      ctx.textAlign = "center";
-      ctx.fillText("🎉 Você chegou em 10 pontos no Hugo Bird!!!! \n Diga pra ele: 'eu gosto de batata frita'🎉", canvas.width / 2, (canvas.height / 3) + 60);
-  }
+    ctx.fillStyle = "rgba(255, 255, 255, 0.8)"; // Fundo semi-transparente
+    ctx.fillRect(boxMargin, textY - 40, canvas.width - (2 * boxMargin), 150);
+
+    // Definir propriedades do texto
+    ctx.font = "bold 24px Arial";
+    ctx.textAlign = "center";
+    const text = "🎉    Você chegou em 10 pontos no Hugo Bird!!!! \n Diga pra ele: 'eu gosto de batata frita'🎉";
+
+    // Dividir texto em linhas
+    const lines = text.split("\n");
+    const lineHeight = 30; // Altura entre linhas
+
+    // Calcular largura máxima para fundo preto
+    const maxWidth = Math.max(...lines.map(line => ctx.measureText(line).width));
+
+    // Desenhar fundo preto para o texto com margem maior
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)"; // Fundo preto semi-transparente
+    ctx.fillRect(
+        textX - maxWidth / 2 - padding,
+        textY - padding,
+        maxWidth + 2 * padding,
+        lines.length * lineHeight + 2 * padding
+    );
+
+    // Renderizar texto linha por linha
+    ctx.fillStyle = "#fff"; // Texto branco
+    lines.forEach((line, i) => {
+        ctx.fillText(line.trim(), textX, textY + i * lineHeight);
+    });
+}
+
+
 
   document.getElementById('bestScore').innerHTML = `Best : ${bestScore}`;
   document.getElementById('currentScore').innerHTML = `Current : ${currentScore}`;
